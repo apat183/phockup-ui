@@ -162,29 +162,11 @@
           </div>
         </div>
       </div>
-      <div v-if="view === 3">
-        <div class="column level-left" v-if="scanning">
-          <p class="is-size-4 has-text-grey-darker">Scanning <i class="fas fa-sync fa-spin"></i></p>
-          <p class="has-text-grey is-italic small-padding-bottom"></i> Scanning "{{input}}" for files.....</p>
-        </div>
-        <div class="column level-left" v-if="!scanning">
-          <p class="is-size-4 has-text-grey-darker">Completed <i class="fas fa-check"></i></p>
-        </div>
-        <div class="column level-left">
-          <p class="has-text-grey is-italic small-padding-bottom" v-for="item in messageReturn">
-            {{ item }}
-          </p>
-        </div>
-        <div class="level-item  padding-bottom">
-          <div class="column">
-
-          </div>
-        </div>
-      </div>
       <div v-if="view === 4">
         <div class="column level-left">
           <p class="is-size-4 has-text-grey-darker">Phockup Location</p>
-          <p class="has-text-grey is-italic small-padding-bottom">Enter directory where Phockup code library is stored</p>
+          <p class="has-text-grey is-italic small-padding-bottom">Enter directory where Phockup code library is stored
+          </p>
         </div>
         <div class="column level-left padding-bottom">
           <p class="has-text-grey-darker is-size-5 has-text-weight-semibold small-padding-bottom">Code Library</p>
@@ -237,16 +219,42 @@
               </span>
               <span>Start</span>
             </a>
-            <a class="button  is-info" v-if="view == 3" v-on:click="view = 0">
-              <span class="icon">
-                <i class="fas fa-check"></i>
-              </span>
-              <span>Done</span>
-            </a>
           </p>
         </div>
       </div>
-
+      <div v-if="view === 3">
+        <div class="level small-padding-sides">
+          <div class="column level-left" >
+            <p class="is-size-4 has-text-grey-darker" v-if="scanning">Scanning <i class="fas fa-sync fa-spin"></i></p>       
+            <p class="has-text-grey is-italic" v-if="scanning"></i> Scanning "{{input}}" for files.....</p>
+            <p class="is-size-4 has-text-grey-darker" v-if="!scanning">Completed <i class="fas fa-check"></i></p>
+          </div>
+          <div class="level-right">
+            <p class="buttons" v-if="scanning">
+              <a class="button  is-danger" v-on:click="cancelProcess()">
+                <span class="icon">
+                  <i class="fas fa-times"></i>
+                </span>
+                <span>Cancel</span>
+              </a>
+            </p>
+            <p class="buttons" v-if="!scanning">
+              <a class="button  is-info" v-on:click="view = 0">
+                <span class="icon">
+                  <i class="fas fa-check"></i>
+                </span>
+                <span>Done</span>
+              </a>
+            </p>
+          </div>
+        </div>
+        <div class="column level-left">
+          <p class="has-text-grey is-italic small-padding-bottom"
+            v-for="(item, index) in messageReturn.slice().reverse()">
+            {{ item }}
+          </p>
+        </div>
+      </div>
     </div>
     <div class="bottom-sticky">
       <div class="level-left">

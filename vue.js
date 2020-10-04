@@ -16,6 +16,7 @@ const vm = new Vue({
     directoryFormat: "",
     originalName: false,
     pythonArgs: [],
+    pythonProcess: null,
     codeDir: "",
     view: 0,
     scanning: true,
@@ -95,8 +96,13 @@ const vm = new Vue({
           };
           completed();
         });
+
+        this.pythonProcess = pyshell.childProcess;
       }
 
+    },
+    cancelProcess: function () {
+      this.pythonProcess.kill('SIGINT');
     },
     isDisabled: function () {
       if (this.input && this.output) {
