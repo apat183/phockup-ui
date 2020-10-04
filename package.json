@@ -11,7 +11,11 @@
   },
   "repository": "",
   "build": {
+    "productName": "Photo Import Sorter",
     "appId": "apat183.photo.import",
+    "win": {
+      "target": "portable"
+    },
     "mac": {
       "category": "apat183.photo.import.tools"
     }
