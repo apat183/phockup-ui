@@ -32,7 +32,7 @@ const vm = new Vue({
       this.destinationBehavior = store.get("phockup.destinationBehavior");
       this.directoryFormat = store.get("phockup.directoryFormat");
       this.originalName = store.get("phockup.originalName");
-      // this.store.get("codeDir");
+      this.codeDir = store.get("codeDir");
     } else {
       this.updateStore();
     }
@@ -116,7 +116,7 @@ const vm = new Vue({
       store.set("phockup.destinationBehavior", this.destinationBehavior);
       store.set("phockup.directoryFormat", this.directoryFormat);
       store.set("phockup.originalName", this.originalName);
-      // store.set("codeDir", this.codeDir);
+      store.set("codeDir", this.codeDir);
     },
     updateCommand: function () {
       this.command = "phockup";
