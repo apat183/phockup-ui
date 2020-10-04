@@ -1,0 +1,40 @@
+{
+  "name": "photo-import",
+  "version": "1.0.0",
+  "description": "A simple cross platform application to quickly copy and paste emojis",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder -w",
+    "dist-mac": "electron-builder -m"
+  },
+  "repository": "",
+  "build": {
+    "appId": "apat183.photo.import",
+    "mac": {
+      "category": "apat183.photo.import.tools"
+    }
+  },
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "Anand Patel",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^2.0.0",
+    "electron-builder": "^20.13.3"
+  },
+  "dependencies": {
+    "auto-launch": "^5.0.5",
+    "electron-reload": "^1.4.0",
+    "electron-store": "^1.3.0",
+    "python-shell": "^1.0.7",
+    "robotjs": "^0.5.1",
+    "vue": "^2.5.16"
+  }
+}

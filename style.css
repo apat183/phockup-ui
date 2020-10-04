@@ -1,0 +1,259 @@
+
+[v-cloak] {
+  display: none !important;
+}
+
+.no-outline {
+  outline: none;
+}
+
+.container-padding {
+  padding-left: 4.5rem;
+  padding-top: 5.5rem;
+  padding-right: 4.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.small-padding {
+  padding: .5rem
+}
+
+.small-padding-bottom {
+  padding-bottom: .4rem
+}
+
+.small-padding-sides {
+  padding-left: .75rem;
+  padding-right: .75rem;
+}
+
+.padding-bottom {
+  padding-bottom: 2rem;
+}
+
+.icon-small-padding {
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.margin-top {
+  margin-top: 100px;
+}
+
+.margin-bottom {
+  margin-bottom: 50px;
+}
+
+.small-margin-bottom {
+  margin-bottom: 10px !important;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+.horizontal-flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.emoji-size-small {
+  cursor: pointer;
+  width:2rem;
+  font-size: 1.4rem;
+  text-align: center;
+  margin: 1px;
+}
+
+html, body, #app {
+  height: 100%;
+  margin: 0;
+  /* overflow: hidden; */
+}
+
+.top-sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #fff;
+  z-index: 2;
+  border-bottom: 1px solid hsl(0, 0%, 86%);
+  -webkit-app-region: drag
+}
+
+.top-sticky span {
+  -webkit-app-region: no-drag;
+}
+
+.border-bottom {
+  border-bottom: 1px solid hsl(0, 0%, 86%);
+}
+.bottom-sticky {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #000;
+  z-index: 2;
+  padding-left: 4.5rem;
+  padding-top: .5rem;
+  padding-right: 4.5rem;
+  padding-bottom: .5rem;
+  /* border-top: 1px solid hsl(0, 0%, 86%); */
+}
+
+::-webkit-scrollbar { display: none; }
+
+.wrapper {
+  min-height: 93%;
+  /* overflow-y: scroll;
+  overflow: hidden; */
+
+  /* Equal to height of footer */
+  /* But also accounting for potential margin-bottom of last child */
+}
+
+/* .sticky-footer {
+  min-height: 7%;
+} */
+
+.tooltip {
+  position: relative;
+  display: inline-block; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  display: none;
+  /* width: 120px; */
+  background-color:hsl(0, 0%, 29%);
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px;
+  font-size: .5rem;
+  min-width: 80px;
+  bottom: 100%;
+  left: 50%; 
+  margin-left: -40px;
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  display: inline;
+  text-decoration:none;
+}
+
+.caption {
+  font-size: .8rem;
+  color: hsl(0, 0%, 29%);
+}
+
+.padding-right {
+  padding-right: 10px;
+}
+.modal-card {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.fa-red {
+  color: #D24D57
+}
+
+.fa-yellow {
+ color: #F4D03F
+}
+
+.fa-grey {
+ color: #6C7A89
+}
+
+.fa-dark-grey {
+  color: rgb(77, 80, 83)
+ }
+
+.tuturial {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  flex-direction: column;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background: linear-gradient(to right bottom, #52B3D9, #4ECDC4);
+}
+
+.row {
+  width: auto;
+}
+
+.tut-card {
+  height: 80%;
+  width: 80%;
+  padding: 0;
+  margin: 0;
+  flex-direction: column;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.background-card{
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.23), 0 10px 40px rgba(0, 0, 0, 0.19);
+  background: #FFF;
+  border-radius: 0;
+  z-index: 1000;
+  border-radius: 10px;
+}
+
+.text-wrap {
+  word-wrap: normal;
+}
+
+.tut-card .level {
+
+  flex-direction: column;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+}
+
+.button-stretch {
+  width: 80%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.padding-top {
+  padding-top: 10px;
+}
+
+.padding-top-large {
+  padding-top: 30px;
+}
+
+.padding-left {
+  padding-left: 10px;
+}

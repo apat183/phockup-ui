@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Photo Import</title>
+</head>
+
+<body>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+  <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <div id="app">
+    <div class="top-sticky">
+      <div class="level-right">
+        <span class="icon is-small icon-small-padding" v-on:click="view = 4">
+          <i class="fas fa-cog fa-grey is-small"></i>
+        </span>
+        <span class="icon is-small icon-small-padding" v-on:click="toggleMinimize()">
+          <i class="fas fa-window-minimize fa-yellow is-small"></i>
+        </span>
+        <span class="icon is-small icon-small-padding" v-on:click="toggleClose()">
+          <i class="fas fa-times fa-red is-small"></i>
+        </span>
+      </div>
+    </div>
+    <div class="container container-padding">
+      <div class="level padding-bottom small-padding-sides">
+        <div class="level-left">
+          <p class="is-size-2 has-text-weight-semibold has-text-grey-darker">Phockup</p>
+          <p class="has-text-grey padding-left">Organize photos and videos by date</p>
+        </div>
+      </div>
+      <div v-if="view === 0">
+        <div class="column level-left">
+          <p class="is-size-4 has-text-grey-darker">Directories</p>
+          <p class="has-text-grey is-italic small-padding-bottom">Select the parent folder to search for files and
+            destination folder.</p>
+        </div>
+        <div class="level padding-bottom">
+          <div class="column level-item level-left is-half">
+            <p class="has-text-grey-darker is-size-5 has-text-weight-semibold small-padding-bottom">Input</p>
+            <div class="file has-name is-fullwidth small-padding-bottom">
+              <label class="file-label">
+                <input class="file-input" type="file" webkitdirectory @change="selectedInput">
+                <span class="file-cta">
+                  <span class="file-icon">
+                    <i class="fas fa-folder-open"></i>
+                  </span>
+                </span>
+                <span class="file-name is-italic" v-if="input">
+                  {{input}}
+                </span>
+                <span class="file-name is-italic" v-else>
+                  No folder selected
+                </span>
+              </label>
+            </div>
+            <p class="has-text-grey">Where to look for files</p>
+          </div>
+          <div class="column level-item level-left is-half">
+            <p class="has-text-grey-darker is-size-5 has-text-weight-semibold small-padding-bottom">Output</p>
+            <div class="file has-name is-fullwidth small-padding-bottom">
+              <label class="file-label">
+                <input class="file-input" type="file" webkitdirectory @change="selectedOutput">
+                <span class="file-cta">
+                  <span class="file-icon">
+                    <i class="fas fa-copy"></i>
+                  </span>
+                </span>
+                <span class="file-name is-italic" v-if="output">
+                  {{output}}
+                </span>
+                <span class="file-name is-italic" v-else>
+                  No folder selected
+                </span>
+              </label>
+            </div>
+            <p class="has-text-grey">Where to create files</p>
+          </div>
+        </div>
+      </div>
+      <div v-if="view === 1">
+        <div class="column level-left">
+          <p class="is-size-4 has-text-grey-darker">Date Lookup</p>
+          <p class="has-text-grey is-italic small-padding-bottom">If there is no EXIF date information in file, how
+            would you
+            like to get date information?</p>
+        </div>
+        <div class="level-item">
+          <div class="column">
+            <p class="has-text-grey-darker is-size-5">Regex expression</p>
+            <p class="has-text-grey small-padding-bottom">Specify date format for date extraction from
+              filenames</p>
+            <input class="input small-padding-bottom" type="text" placeholder="Enter Regex Expression" v-model="regex"
+              @change="updateCommand()">
+          </div>
+        </div>
+        <div class="level-item">
+          <div class="column">
+            <p class="has-text-grey-darker is-size-5">File timestamp</p>
+            <label class="checkbox">
+              <input type="checkbox" v-model="creationDate" @change="updateCommand()">
+              <span class="has-text-grey padding-left">Use the file modification timestamp if no EXIF date
+                information in file</span>
+            </label>
+          </div>
+        </div>
+        <div class="level-item  padding-bottom">
+          <div class="column">
+            <p class="has-text-grey is-italic small-padding-bottom">Note: All files which are not images or videos or
+              those
+              which do not have EXIF date information will be placed in a directory called unknown without file
+              name change.</p>
+          </div>
+        </div>
+      </div>
+      <div v-if="view === 2">
+        <div class="column level-left">
+          <p class="is-size-4 has-text-grey-darker">File Handling</p>
+          <p class="has-text-grey is-italic small-padding-bottom">How would you like to handle photo and video files
+            scanned?</p>
+        </div>
+        <div class="level-item">
+          <div class="column">
+            <p class="has-text-grey-darker is-size-5">File Processing Behavior</p>
+            <p class="has-text-grey small-padding-bottom">Specify if you would like to copy, move or link
+              scanned files</p>
+            <div class="control">
+              <label class="radio">
+                <input type="radio" id="copy" value="copy" v-model="destinationBehavior" @change="updateCommand()">
+                Copy
+              </label>
+              <label class="radio">
+                <input type="radio" id="move" value="move" v-model="destinationBehavior" @change="updateCommand()">
+                Move
+              </label>
+              <label class="radio">
+                <input type="radio" id="link" value="link" v-model="destinationBehavior" @change="updateCommand()">
+                Link
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="level-item">
+          <div class="column">
+            <p class="has-text-grey-darker is-size-5">Output directory format</p>
+            <p class="has-text-grey small-padding-bottom">If you want to change the default output directory
+              date format, enter format</p>
+            <input class="input small-padding-bottom" type="text" v-model="directoryFormat" @change="updateCommand()"
+              placeholder="Enter Date Format - Default: YYYY/MM/DD">
+          </div>
+        </div>
+        <div class="level-item  padding-bottom">
+          <div class="column">
+            <p class="has-text-grey-darker is-size-5">Original File Names</p>
+            <label class="checkbox">
+              <input type="checkbox" v-model="originalName" @change="updateCommand()">
+              <span class="has-text-grey padding-left">Keep original file names and don't rename files based on
+                timestamp</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div v-if="view === 3">
+        <div class="column level-left" v-if="scanning">
+          <p class="is-size-4 has-text-grey-darker">Scanning <i class="fas fa-sync fa-spin"></i></p>
+          <p class="has-text-grey is-italic small-padding-bottom"></i> Scanning "{{input}}" for files.....</p>
+        </div>
+        <div class="column level-left" v-if="!scanning">
+          <p class="is-size-4 has-text-grey-darker">Completed <i class="fas fa-check"></i></p>
+        </div>
+        <div class="column level-left">
+          <p class="has-text-grey is-italic small-padding-bottom" v-for="item in messageReturn">
+            {{ item }}
+          </p>
+        </div>
+        <div class="level-item  padding-bottom">
+          <div class="column">
+
+          </div>
+        </div>
+      </div>
+      <div v-if="view === 4">
+        <div class="column level-left">
+          <p class="is-size-4 has-text-grey-darker">Phockup Location</p>
+          <p class="has-text-grey is-italic small-padding-bottom">Enter directory where Phockup code library is stored</p>
+        </div>
+        <div class="column level-left padding-bottom">
+          <p class="has-text-grey-darker is-size-5 has-text-weight-semibold small-padding-bottom">Code Library</p>
+          <div class="file has-name is-fullwidth small-padding-bottom">
+            <label class="file-label">
+              <input class="file-input" type="file" webkitdirectory @change="selectedPhockup">
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-folder-open"></i>
+                </span>
+              </span>
+              <span class="file-name is-italic" v-if="codeDir">
+                {{codeDir}}
+              </span>
+              <span class="file-name is-italic" v-else>
+                No folder selected
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="level small-padding-sides padding-bottom">
+        <div class="level-left">
+          <p class="buttons">
+            <a class="button is-light" v-on:click="view = 0" v-if="view == 1 || view == 2 || view == 4">
+              <span class="icon">
+                <i class="fas fa-arrow-circle-left"></i>
+              </span>
+              <span>Back</span>
+            </a>
+            <a class="button is-light" v-on:click="view = 1" v-if="view == 0">
+              <span class="icon">
+                <i class="fas fa-calendar-check"></i>
+              </span>
+              <span>Date Options</span>
+            </a>
+            <a class="button is-light" v-on:click="view = 2" v-if="view == 0">
+              <span class="icon">
+                <i class="fas fa-tags"></i>
+              </span>
+              <span>File Options</span>
+            </a>
+          </p>
+        </div>
+        <div class="level-right">
+          <p class="buttons">
+            <a class="button is-primary" v-if="view == 0" :disabled="isDisabled()" v-on:click="changeView(3)">
+              <span class="icon">
+                <i class="fab fa-searchengin"></i>
+              </span>
+              <span>Start</span>
+            </a>
+            <a class="button  is-info" v-if="view == 3" v-on:click="view = 0">
+              <span class="icon">
+                <i class="fas fa-check"></i>
+              </span>
+              <span>Done</span>
+            </a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+    <div class="bottom-sticky">
+      <div class="level-left">
+        <p class="has-text-grey-lighter is-family-code">$ {{command}}</p>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    // You can also require other files to run in this process
+    require('./renderer.js')
+    require('./vue.js')
+  </script>
+
+  <!-- <script src="vue.js"></script> -->
+
+</body>
+
+</html>
