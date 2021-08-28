@@ -29,7 +29,10 @@ const createWindow = () => {
     transparent: true,
     // skipTaskbar: true,
     webPreferences: {
-      backgroundThrottling: false
+      nodeIntegration: true,
+      contextIsolation: false,
+      backgroundThrottling: false,
+      enableRemoteModule: true
     }
   });
 

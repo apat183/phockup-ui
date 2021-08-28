@@ -42,7 +42,7 @@
             <p class="has-text-grey-darker is-size-5 has-text-weight-semibold small-padding-bottom">Input</p>
             <div class="file has-name is-fullwidth small-padding-bottom">
               <label class="file-label">
-                <input class="file-input" type="file" webkitdirectory @change="selectedInput">
+                <input class="file-input" type="file" webkitdirectory directory @change="selectedInput">
                 <span class="file-cta">
                   <span class="file-icon">
                     <i class="fas fa-folder-open"></i>
@@ -56,13 +56,14 @@
                 </span>
               </label>
             </div>
+            <input class="input small-padding-bottom" type="text" v-model="input" @change="updateCommand()">
             <p class="has-text-grey">Where to look for files</p>
           </div>
           <div class="column level-item level-left is-half">
             <p class="has-text-grey-darker is-size-5 has-text-weight-semibold small-padding-bottom">Output</p>
             <div class="file has-name is-fullwidth small-padding-bottom">
               <label class="file-label">
-                <input class="file-input" type="file" webkitdirectory @change="selectedOutput">
+                <input class="file-input" type="file" webkitdirectory directory @change="selectedOutput">
                 <span class="file-cta">
                   <span class="file-icon">
                     <i class="fas fa-copy"></i>
@@ -76,7 +77,8 @@
                 </span>
               </label>
             </div>
-            <p class="has-text-grey">Where to create files</p>
+            <input class="input small-padding-bottom" type="text" v-model="output" @change="updateCommand()">
+            <p class="has-text-grey">Where to move files (can't be empty)</p>
           </div>
         </div>
       </div>
@@ -172,7 +174,7 @@
           <p class="has-text-grey-darker is-size-5 has-text-weight-semibold small-padding-bottom">Code Library</p>
           <div class="file has-name is-fullwidth small-padding-bottom">
             <label class="file-label">
-              <input class="file-input" type="file" webkitdirectory @change="selectedPhockup">
+              <input class="file-input" type="file" webkitdirectory directory @change="selectedPhockup">
               <span class="file-cta">
                 <span class="file-icon">
                   <i class="fas fa-folder-open"></i>
@@ -224,8 +226,8 @@
       </div>
       <div v-if="view === 3">
         <div class="level small-padding-sides">
-          <div class="column level-left" >
-            <p class="is-size-4 has-text-grey-darker" v-if="scanning">Scanning <i class="fas fa-sync fa-spin"></i></p>       
+          <div class="column level-left">
+            <p class="is-size-4 has-text-grey-darker" v-if="scanning">Scanning <i class="fas fa-sync fa-spin"></i></p>
             <p class="has-text-grey is-italic" v-if="scanning"></i> Scanning "{{input}}" for files.....</p>
             <p class="is-size-4 has-text-grey-darker" v-if="!scanning">Completed <i class="fas fa-check"></i></p>
           </div>

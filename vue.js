@@ -49,21 +49,25 @@ const vm = new Vue({
     toggleClose: function () {
       remote.app.quit();
     },
+    cleanPath: function (_path) {
+      var path = _path;
+      var split = path.split("/");
+      return split.slice(0, split.length - 1).join("/") + "/";
+    },
     selectedPhockup: function (e) {
-      this.codeDir = e.target.files[0].path;
+      this.codeDir = this.cleanPath(e.target.files[0].path);
       this.updateCommand();
     },
     selectedInput: function (e) {
-      this.input = e.target.files[0].path;
+      this.input = this.cleanPath(e.target.files[0].path);
       this.updateCommand();
     },
     selectedOutput: function (e) {
-      this.output = e.target.files[0].path;
+      this.output = this.cleanPath(e.target.files[0].path);
       this.updateCommand();
     },
     updateResults: function (params) {
       this.messageReturn.push(params);
-      // console.log(this.messageReturn);
     },
     changeView: function (view) {
       this.view = view;
